@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32002.261
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{BC277DC1-0127-4758-BC89-9321FEF9BC21}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OneOpsServer", "OneOpsServer", "{F655A851-162C-4F05-A88A-A0B0BBDBBE63}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneOpsServer.Api", "Src\OneOpsServer\OneOpsServer.Api\OneOpsServer.Api.csproj", "{120FFECF-572A-438C-9313-85D755308203}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OneOpsClient", "OneOpsClient", "{B99B6101-577E-4388-B526-E2A916D113C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneOpsClient.Api", "Src\OneOpsClient\OneOpsClient.Api\OneOpsClient.Api.csproj", "{64B1F6F6-34DA-4F8D-8B46-1D393DC77246}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{120FFECF-572A-438C-9313-85D755308203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{120FFECF-572A-438C-9313-85D755308203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{120FFECF-572A-438C-9313-85D755308203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{120FFECF-572A-438C-9313-85D755308203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64B1F6F6-34DA-4F8D-8B46-1D393DC77246}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64B1F6F6-34DA-4F8D-8B46-1D393DC77246}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64B1F6F6-34DA-4F8D-8B46-1D393DC77246}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64B1F6F6-34DA-4F8D-8B46-1D393DC77246}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F655A851-162C-4F05-A88A-A0B0BBDBBE63} = {BC277DC1-0127-4758-BC89-9321FEF9BC21}
+		{120FFECF-572A-438C-9313-85D755308203} = {F655A851-162C-4F05-A88A-A0B0BBDBBE63}
+		{B99B6101-577E-4388-B526-E2A916D113C6} = {BC277DC1-0127-4758-BC89-9321FEF9BC21}
+		{64B1F6F6-34DA-4F8D-8B46-1D393DC77246} = {B99B6101-577E-4388-B526-E2A916D113C6}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A6D05FDA-1AFC-4687-B41D-7971D39D9153}
+	EndGlobalSection
+EndGlobal

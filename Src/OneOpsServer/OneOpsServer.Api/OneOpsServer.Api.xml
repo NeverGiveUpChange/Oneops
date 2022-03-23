@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OneOpsServer.Api</name>
+    </assembly>
+    <members>
+        <member name="M:OneOpsServer.Api.Controllers.IISServerManagerController.GetWebSiteInfo(System.String,System.String)">
+            <summary>
+            获取当前iis站点信息
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsServer.Api.Controllers.IISServerManagerController.GetRollBackPackages(System.String)">
+            <summary>
+            获取回滚包列表
+            </summary>
+            <param name="id">站点id</param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsServer.Api.Controllers.IISServerManagerController.Publish(OneOpsServer.Api.Model.PublishInfo)">
+            <summary>
+            发布
+            </summary>
+            <param name="publishInfo">站点信息</param>
+        </member>
+        <member name="M:OneOpsServer.Api.Controllers.IISServerManagerController.RollBack(OneOpsServer.Api.Model.RollbackInfo)">
+            <summary>
+            回滚
+            </summary>
+            <param name="rollbackInfo"></param>
+        </member>
+        <member name="M:OneOpsServer.Api.Controllers.IISServerManagerController.CreateSite(OneOpsServer.Api.Model.CreateSiteInfo)">
+            <summary>
+            创建站点
+            </summary>
+            <param name="createSiteInfo">站点信息</param>
+        </member>
+        <member name="M:OneOpsServer.Api.Controllers.IISServerManagerController.DeleteSite(OneOpsServer.Api.Model.SiteDeletedInfo)">
+            <summary>
+            删除站点
+            </summary>
+            <param name="siteDeletedInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.CreateSiteInfo.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.CreateSiteInfo.Port">
+            <summary>
+            端口号
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.CreateSiteInfo.PoolName">
+            <summary>
+            程序池名称（默认和程序集名称相同可不传）
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.CreateSiteInfo.RealmName">
+            <summary>
+            域名
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.CreateSiteInfo.PublishDirectoryPath">
+            <summary>
+            发布文件夹路径
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.LoginInfo.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.LoginInfo.PassWord">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.LoginInfo.Env">
+            <summary>
+            环境
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.PublishInfo.FormFile">
+            <summary>
+            待发布的项目文件
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.PublishInfo.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.RollbackInfo.Id">
+            <summary>
+             站点在当前服务器上的id
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.RollbackInfo.Ip">
+            <summary>
+            站点所在服务器ip
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.Model.RollbackInfo.FileName">
+            <summary>
+            回滚包名称
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.RedisQueue.MessageModel.MethodName">
+            <summary>
+            signalR执行方法名
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.RedisQueue.MessageModel.UserName">
+            <summary>
+            signalR分组名
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.RedisQueue.MessageModel.StepMessage">
+            <summary>
+            步骤信息
+            </summary>
+        </member>
+        <member name="P:OneOpsServer.Api.RedisQueue.MessageModel.Status">
+            <summary>
+            步骤状态
+            </summary>
+        </member>
+    </members>
+</doc>

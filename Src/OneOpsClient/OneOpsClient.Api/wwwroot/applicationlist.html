@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Oneops-v1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/cookie.js"></script>
+    <script src="./microsoft/signalr/dist/browser/signalr.min.js"></script>
+    <style type="text/css">
+        ol li {
+            list-style: decimal;
+        }
+    </style>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body class="">
+    <div class="x-nav">
+
+        <a class="layui-btn layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:location.replace(location.href);" title="刷新">
+            <i class="layui-icon" style="line-height:30px">ဂ</i>
+        </a>
+    </div>
+    <div class="x-body">
+        <div class="layui-row">
+            <form class="layui-form layui-col-md12 x-so">
+                <input name="ip" placeholder="服务器IP" type="text" class="layui-input">
+                <input name="siteName" placeholder="服务名" type="text" class="layui-input">
+                <a class="layui-btn" id="siteSearch"><i class="layui-icon">&#xe615;</i></a>
+            </form>
+        </div>
+
+        <table class="layui-table" lay-filter="test" id="siteInfo">
+        </table>
+        <div id="opmessage">
+            <h3>操作信息：</h3>
+            <div style="height: 300px;  overflow: auto; background: #EEEEEE; ">
+                <ul id="siteMessage">
+            
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/html" id="topbar">
+        <button type="button" class="layui-btn  layui-btn-sm" lay-event="add">添加</button>
+        <button type="button" class="layui-btn  layui-btn-sm" lay-event="publish">发布</button>
+    </script>
+    <script type="text/html" id="bar">
+        <button type="button" class="layui-btn  layui-btn-xs" lay-event="log">日志</button>
+        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger" lay-event="rollback">回滚</button>
+        <button type="button" class="layui-btn  layui-btn-sm layui-btn-danger" lay-event="delete">删除</button>
+    </script>
+    <script>
+        layui.use('table', function () {
+
+            var table = layui.table;
+
+            var tableObj = table.render({
+                elem: '#siteInfo',
+                id: 'tableReload',
+                url: './api/iisservermanager/websiteinfo',
+                toolbar: '#topbar',
+                defaultToolbar: [],
+                cols: [[
+                    { type: 'checkbox', title: 'ID' },
+                    { field: 'id', width: 80, title: 'ID' },
+                    { field: 'name', width: 100, title: '站点名称' },
+                    { field: 'ip', width: 100, title: '服务器IP' },
+                    { field: 'state', width: 80, title: '站点状态' },
+                    { field: 'serverBindings', width: 240, title: '站点绑定' },
+                    { field: 'currentVersion', width: 80, title: '当前版本' },
+                    { field: 'physicalPath', width: 150, title: '部署路径' },
+                    { field: '', title: '操作', toolbar: '#bar' },
+                ]],
+                page: true,
+                where: { searchIp: $("input[name='ip']").val(), searchSiteName: $("input[name='siteName']").val() },
+                headers: { authorization: "Bearer " + JSON.parse(localStorage.getItem('userinfo')).token },
+                error: function (r) {
+                    if (r.status == 401) {
+                        location.href = "login.html";
+                    }
+
+                }
+
+            });
+            $('#siteSearch').on('click', function () {
+
+                table.reload('tableReload', {
+                    url: './api/iisservermanager/websiteinfo',
+                    where: { searchIp: $("input[name='ip']").val(), searchSiteName: $("input[name='siteName']").val() },
+                    page: { curr: 1 }
+                })
+            })
+            table.on('toolbar(test)', function (obj) {
+                switch (obj.event) {
+                    case 'publish':
+                        var checkStatus = table.checkStatus(obj.config.id);
+                        var data = checkStatus.data;
+                        if (data.length <= 0) {
+                            layer.alert('未选中任何发布站点');
+                        } else {
+                            var res = new Map();
+                            data.filter((a) => !res.has(a.name) && res.set(a.name, 1));
+                            if (res.size > 1) {
+                                layer.alert('发布时只能选择同一站点');
+                            } else {
+                                $('#siteMessage').html('');
+                                $('#opmessage').show();
+                                x_publish_show('发布', './site-publish.html', 600, 400, data);
+                            }
+                        }
+                        break;
+                    case 'add':
+                        $('#siteMessage').html('');
+                        $('#opmessage').show();
+                        x_createsite_show('添加站点', './site-add.html', 750, 550);
+                        break;
+                }
+
+            });
+            table.on('tool(test)', function (obj) {
+                switch (obj.event) {
+                    case 'log':
+                        layer.msg('此功能暂未开放', function () {
+
+                        });
+                        break;
+                    case 'rollback':
+                        $('#siteMessage').html('');
+                        $('#opmessage').show();
+                        x_rollback_show('回滚', './site-rollback.html', 600, 400, obj);
+                        break;
+                    case 'delete':
+                        x_deleteConfirm_show('应用程序', '../api/iisservermanager/delete', obj);
+                };
+            });
+        });
+
+
+    </script>
+    <script>
+        $(function () {
+            $('#opmessage').hide();
+
+            var connection = new signalR.HubConnectionBuilder()
+                .withUrl("/sitemessage?userName=" + JSON.parse(localStorage.getItem('userinfo')).username)
+                .withAutomaticReconnect()
+                .build();
+            connection.serverTimeoutInMilliseconds = 24e4;
+            connection.keepAliveIntervalInMilliseconds = 12e4;
+            connection.on('create', (value) => {
+                if (value.status) {
+
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color", "darkgreen");
+                } else {
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color", "crimson");
+                }
+            });
+            connection.on('publish', (value) => {
+
+                if (value.status) {
+
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color", "darkgreen");
+                } else {
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color", "crimson");
+                }
+            });
+            connection.on('rollback', (value) => {
+                if (value.status) {
+
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color","darkgreen");
+                } else {
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color","crimson");
+                }
+    
+            });
+            connection.on('everytimecomplete', (value) => {
+                if (value.status) {
+
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color","darkgreen");
+                } else {
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color","crimson");
+                }
+            });
+            connection.on('allcomplete', (value) => {
+                if (value.status) {
+
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color","darkgreen");
+                } else {
+                    $("#siteMessage").append('<li>' + value.stepMessage + '</li>').css("color","crimson");
+                }
+       
+                layui.use('table', function () {
+                    var table = layui.table;
+                    table.reload('tableReload', {
+                        url: './api/iisservermanager/websiteinfo',
+                        where: { searchIp: $("input[name='ip']").val(), searchSiteName: $("input[name='siteName']").val() }
+                    })
+                })
+            })
+            connection.start();
+
+        });
+    </script>
+
+</body>
+
+</html>

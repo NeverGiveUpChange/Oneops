@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Oneops-v1.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" href="./css/formselects-v4.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <script type="text/javascript" src="./js/formselect-v4.js"></script>
+    <script type="text/javascript" src="./js/cookie.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="x-body">
+        <form class="layui-form" id="siteaddForm">
+            <div class="layui-form-item">
+                <label for="SiteName" class="layui-form-label">
+                    <span class="x-red">*</span>站点名称
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="SiteName" name="SiteName" lay-verify="required"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="Port" class="layui-form-label">
+                    <span class="x-red">*</span>端口号
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="Port" name="Port" lay-verify="required" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="Ips" class="layui-form-label">
+                    <span class="x-red">*</span>服务器IP
+                </label>
+                <div class="layui-input-inline">
+                 
+                    <select name="Ips" id="Ips" lay-verify="required" xm-select="Ips">
+                        <!--<option value="">请选择</option>-->
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="ApplicationType" class="layui-form-label">
+                    <span class="x-red">*</span>请选类型
+                </label>
+                <div class="layui-input-inline">
+                    <input name="ApplicationType" value="1" type="radio" title=".NetCore" checked="checked"> 
+                    <input name="ApplicationType" value="0" type="radio" title=".NetFramework">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="RealmName" class="layui-form-label">
+                    <span class="x-red">*</span>域名
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="RealmName" name="RealmName" lay-verify="required"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="PublishDirectoryPath" class="layui-form-label">
+                    <span class="x-red">*</span>父文件路径
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="PublishDirectoryPath" name="PublishDirectoryPath" lay-verify="required"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" id="upload">
+                        <i class="layui-icon">&#xe67c;</i>上传文件
+                    </button>
+                    <span id="showFileName"></span>
+                    <div class="layui-input-inline" id="showFileName">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label for="L_repass" class="layui-form-label">
+                </label>
+                <input class="layui-btn" lay-submit lay-filter="add" value="增加" id="add">
+            </div>
+        </form>
+    </div>
+    <script>
+        $(function () {
+
+            layui.use(['form', 'layer','upload'], function () {
+                $ = layui.jquery;
+                var form = layui.form
+                    , layer = layui.layer;
+                var upload = layui.upload;
+                var formSelects = layui.formSelects;
+                formSelects.render();
+
+                upload.render({
+                    elem: '#upload',
+                    accept: 'file',
+                    url: '../api/iisservermanager/createsite',
+                    headers: { authorization: "Bearer " + JSON.parse(localStorage.getItem('userinfo')).token },
+                    field: 'FormFile',
+                    auto: false,
+                    bindAction: '#add',
+                    before: function () {
+                        this.data = {
+                            SiteName: $('#SiteName').val(),
+                            Port: $('#Port').val(),
+                            Ips: $('#Ips').val(),
+                            RealmName: $('#RealmName').val(),
+                            PublishDirectoryPath: $('#PublishDirectoryPath').val(),
+                            ApplicationType: $("input[name=ApplicationType]:checked").val()
+                        }
+                    },
+                    choose: function (obj) {
+
+                        obj.preview(function (index, file, result) {
+                            $('#showFileName').html(file.name);
+
+                        })
+                    },
+                    done: function (res, index, upload) {
+                        var a = res;
+                        x_admin_close();
+                    }
+
+                });
+            });
+        })
+    </script>
+
+</body>
+
+</html>

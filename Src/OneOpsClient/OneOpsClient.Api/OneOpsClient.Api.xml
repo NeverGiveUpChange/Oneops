@@ -1,0 +1,173 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OneOpsClient.Api</name>
+    </assembly>
+    <members>
+        <member name="M:OneOpsClient.Api.Controllers.IISServerManagerController.WebSiteInfoAsync(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            获取服务器站点信息
+            </summary>
+            <param name="searchIp"></param>
+            <param name="searchSiteName"></param>
+            <param name="page"></param>
+            <param name="limit"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.IISServerManagerController.RollBackPackagesAsync(System.String,System.Int32)">
+            <summary>
+            回滚指定站点回滚包
+            </summary>
+            <param name="ip"></param>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.IISServerManagerController.Publish(OneOpsClient.Api.Model.PublishInfo)">
+            <summary>
+            站点发布
+            </summary>
+            <param name="publishInfo"></param>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.IISServerManagerController.RollBackAsync(OneOpsClient.Api.Model.RollbackInfo)">
+            <summary>
+            回滚
+            </summary>
+            <param name="rollbackInfo"></param>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.IISServerManagerController.CreateSite(OneOpsClient.Api.Model.CreateSiteInfo)">
+            <summary>
+            创建
+            </summary>
+            <param name="createSiteInfo"></param>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.IISServerManagerController.DeleteSite(OneOpsClient.Api.Model.SiteDeletedInfo)">
+            <summary>
+            删除
+            </summary>
+            <param name="siteDeletedInfo"></param>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.ServerController.ServerList(System.String)">
+            <summary>
+            获取服务器列表
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.ServerController.AddServer(System.String)">
+            <summary>
+            添加服务器
+            </summary>
+            <param name="ip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.ServerController.DeleteServer(System.Int32)">
+            <summary>
+            删除服务器
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.UserController.Token(OneOpsClient.Api.Model.LoginInfo)">
+            <summary>
+            获取token
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.UserController.CreateUser(OneOpsClient.Api.Model.LoginInfo)">
+            <summary>
+            创建用户
+            </summary>
+            <param name="loginInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.UserController.UserList(System.String)">
+            <summary>
+            获取用户列表
+            </summary>
+            <param name="username"></param>
+            <returns></returns>
+        </member>
+        <member name="M:OneOpsClient.Api.Controllers.UserController.DeleteUser(System.Int32)">
+            <summary>
+            删除用户
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.CreateSiteInfo.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.CreateSiteInfo.Port">
+            <summary>
+            端口号
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.CreateSiteInfo.PoolName">
+            <summary>
+            程序池名称（默认和程序集名称相同可不传）
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.CreateSiteInfo.IPList">
+            <summary>
+            要发布的机器ip列表
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.CreateSiteInfo.RealmName">
+            <summary>
+            域名
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.CreateSiteInfo.PublishDirectoryPath">
+            <summary>
+            发布文件夹路径
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.LoginInfo.UserName">
+            <summary>
+            用户名
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.LoginInfo.PassWord">
+            <summary>
+            密码
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.LoginInfo.Env">
+            <summary>
+            环境
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.PublishInfo.FormFile">
+            <summary>
+            待发布的项目文件
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.PublishInfo.SiteName">
+            <summary>
+            站点名称
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.PublishInfo.IpIdStr">
+            <summary>
+            发布的机器ip和站点id字典
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.RollbackInfo.Id">
+            <summary>
+             站点在当前服务器上的id
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.RollbackInfo.Ip">
+            <summary>
+            站点所在服务器ip
+            </summary>
+        </member>
+        <member name="P:OneOpsClient.Api.Model.RollbackInfo.FileName">
+            <summary>
+            回滚包名称
+            </summary>
+        </member>
+    </members>
+</doc>
